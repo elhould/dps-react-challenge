@@ -24,6 +24,11 @@ function App() {
 			);
 	}, []);
 
+	function formatDate(dateAsString: string): string {
+		const date = new Date(dateAsString);
+		return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+	}
+
 	return (
 		<>
 			<div>
@@ -48,7 +53,7 @@ function App() {
 							<tr key={user.id}>
 								<td>{user.firstName + ' ' + user.lastName}</td>
 								<td>{user.address.city}</td>
-								<td>{user.birthDate}</td>
+								<td>{formatDate(user.birthDate)}</td>
 							</tr>
 						))}
 					</tbody>
