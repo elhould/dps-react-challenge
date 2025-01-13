@@ -56,7 +56,13 @@ function App() {
 					<img src={dpsLogo} className="logo" alt="DPS logo" />
 				</a>
 			</div>
-			<div>
+			<div
+				style={{
+					border: '2px solid black',
+					borderRadius: '16px',
+					padding: '1rem',
+				}}
+			>
 				<div
 					style={{
 						marginBottom: '1rem',
@@ -83,7 +89,7 @@ function App() {
 							onChange={(e) => setNameFilter(e.target.value)}
 							style={{
 								width: '100%',
-								border: '1px solid black',
+								border: '2px solid black',
 							}}
 						/>
 					</div>
@@ -104,7 +110,7 @@ function App() {
 							onChange={(e) => setCityFilter(e.target.value)}
 							style={{
 								width: '100%',
-								border: '1px solid black',
+								border: '2px solid black',
 							}}
 						>
 							{/* The "Select City" option here is supposed to simulate a placeholder, because select doesn't offer placeholders */}
@@ -120,27 +126,91 @@ function App() {
 						</select>
 					</div>
 				</div>
-				<table
-					border={1}
-					style={{ width: '100%', borderCollapse: 'collapse' }}
+				<div
+					style={{
+						border: '2px solid black',
+						borderRadius: '16px',
+						overflow: 'hidden',
+					}}
 				>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>City</th>
-							<th>Birthday</th>
-						</tr>
-					</thead>
-					<tbody>
-						{filteredUsers.map((user) => (
-							<tr key={user.id}>
-								<td>{user.firstName + ' ' + user.lastName}</td>
-								<td>{user.address.city}</td>
-								<td>{formatDate(user.birthDate)}</td>
+					<table
+						style={{
+							width: '100%',
+							borderCollapse: 'collapse',
+						}}
+					>
+						<thead>
+							<tr
+								style={{
+									borderBottom: '2px solid black',
+								}}
+							>
+								<th
+									style={{
+										fontWeight: 'normal',
+										padding: '10px',
+										textAlign: 'left',
+									}}
+								>
+									Name
+								</th>
+								<th
+									style={{
+										fontWeight: 'normal',
+										padding: '10px',
+										textAlign: 'left',
+									}}
+								>
+									City
+								</th>
+								<th
+									style={{
+										fontWeight: 'normal',
+										padding: '10px',
+										textAlign: 'left',
+									}}
+								>
+									Birthday
+								</th>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{filteredUsers.map((user) => (
+								<tr
+									key={user.id}
+									style={{
+										borderRadius: '5px',
+									}}
+								>
+									<td
+										style={{
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
+										{user.firstName + ' ' + user.lastName}
+									</td>
+									<td
+										style={{
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
+										{user.address.city}
+									</td>
+									<td
+										style={{
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
+										{formatDate(user.birthDate)}
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</>
 	);
