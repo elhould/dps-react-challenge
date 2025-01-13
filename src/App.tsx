@@ -18,6 +18,8 @@ function App() {
 	const [users, setUsers] = useState<User[]>([]);
 	const [nameFilter, setNameFilter] = useState<string>('');
 	const [cityFilter, setCityFilter] = useState<string>('');
+	const [highlightOldestUserPerCity, setHighlightOldestPerCity] =
+		useState<boolean>(false);
 
 	// Fetch users from the API and set them in the state
 	useEffect(() => {
@@ -49,6 +51,29 @@ function App() {
 			(cityFilter === '' || user.address.city === cityFilter)
 	);
 
+	const oldestUsersPerCity = users.reduce<{ [key: string]: User[] }>(
+		(acc, user) => {
+			const city = user.address.city;
+			if (!acc[city]) {
+				acc[city] = [user];
+			} else {
+				const existingOldestUser = acc[city][0];
+				const userBirthDate = new Date(user.birthDate).getTime();
+				const existingBirthDate = new Date(
+					existingOldestUser.birthDate
+				).getTime();
+
+				if (userBirthDate < existingBirthDate) {
+					acc[city] = [user];
+				} else if (userBirthDate === existingBirthDate) {
+					acc[city].push(user);
+				}
+			}
+			return acc;
+		},
+		{}
+	);
+
 	return (
 		<>
 			<div>
@@ -70,7 +95,7 @@ function App() {
 						gap: '1rem',
 					}}
 				>
-					{/* Filter by Name */}
+					{/* Filter by name */}
 					<div style={{ flex: 1 }}>
 						<div
 							style={{
@@ -94,7 +119,7 @@ function App() {
 						/>
 					</div>
 
-					{/* Filter by City */}
+					{/* Filter by city */}
 					<div style={{ flex: 1 }}>
 						<div
 							style={{
@@ -124,6 +149,41 @@ function App() {
 								</option>
 							))}
 						</select>
+					</div>
+
+					{/* Highlight oldest users per city */}
+					<div
+						style={{
+							flex: 1,
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						<label
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								width: '100%',
+								gap: '0.5rem',
+								fontSize: '1rem',
+								textAlign: 'left',
+								marginTop: '1rem',
+							}}
+						>
+							Highlight oldest per city
+							<input
+								style={{
+									width: '50%',
+									transform: 'scale(1.5)',
+								}}
+								type="checkbox"
+								checked={highlightOldestUserPerCity}
+								onChange={(e) =>
+									setHighlightOldestPerCity(e.target.checked)
+								}
+							/>
+						</label>
 					</div>
 				</div>
 				<div
@@ -175,39 +235,52 @@ function App() {
 							</tr>
 						</thead>
 						<tbody>
-							{filteredUsers.map((user) => (
-								<tr
-									key={user.id}
-									style={{
-										borderRadius: '5px',
-									}}
-								>
-									<td
+							{filteredUsers.map((user) => {
+								const isOldest =
+									highlightOldestUserPerCity &&
+									oldestUsersPerCity[user.address.city]?.some(
+										(u) => u.id === user.id
+									);
+
+								return (
+									<tr
+										key={user.id}
 										style={{
-											padding: '10px',
-											textAlign: 'left',
+											backgroundColor: isOldest
+												? '#add8e6'
+												: 'transparent',
+											borderRadius: '5px',
 										}}
 									>
-										{user.firstName + ' ' + user.lastName}
-									</td>
-									<td
-										style={{
-											padding: '10px',
-											textAlign: 'left',
-										}}
-									>
-										{user.address.city}
-									</td>
-									<td
-										style={{
-											padding: '10px',
-											textAlign: 'left',
-										}}
-									>
-										{formatDate(user.birthDate)}
-									</td>
-								</tr>
-							))}
+										<td
+											style={{
+												padding: '10px',
+												textAlign: 'left',
+											}}
+										>
+											{user.firstName +
+												' ' +
+												user.lastName}
+										</td>
+										<td
+											style={{
+												padding: '10px',
+												textAlign: 'left',
+											}}
+										>
+											{user.address.city}
+										</td>
+										<td
+											style={{
+												padding: '10px',
+												textAlign: 'left',
+											}}
+										>
+											{formatDate(user.birthDate)}
+										</td>
+									</tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</div>
