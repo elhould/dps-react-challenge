@@ -1,7 +1,29 @@
 import dpsLogo from './assets/DPS.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+
+interface User {
+	id: number;
+	firstName: string;
+	lastName: string;
+	address: {
+		city: string;
+	};
+	birthDate: string;
+}
 
 function App() {
+	const [users, setUsers] = useState<User[]>([]);
+
+	useEffect(() => {
+		fetch('https://dummyjson.com/users')
+			.then((response) => response.json())
+			.then((data) => setUsers(data.users))
+			.catch((error) =>
+				console.error('An error occured while fetching users: ', error)
+			);
+	}, []);
+
 	return (
 		<>
 			<div>
@@ -9,8 +31,28 @@ function App() {
 					<img src={dpsLogo} className="logo" alt="DPS logo" />
 				</a>
 			</div>
-			<div className="home-card">
-				<p>Your solution goes here 😊</p>
+			<div>
+				<table
+					border={1}
+					style={{ width: '100%', borderCollapse: 'collapse' }}
+				>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>City</th>
+							<th>Birthday</th>
+						</tr>
+					</thead>
+					<tbody>
+						{users.map((user) => (
+							<tr key={user.id}>
+								<td>{user.firstName + ' ' + user.lastName}</td>
+								<td>{user.address.city}</td>
+								<td>{user.birthDate}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
 		</>
 	);
