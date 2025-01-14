@@ -96,7 +96,17 @@ function App() {
 	}, [users]);
 
 	return (
-		<>
+		<div
+			style={{
+				position: 'fixed',
+				top: '5%',
+				left: '50%',
+				transform: 'translateX(-50%)',
+				gap: '1rem',
+				width: '90%',
+				maxWidth: '800px',
+			}}
+		>
 			<div>
 				<a href="https://www.digitalproductschool.io/" target="_blank">
 					<img src={dpsLogo} className="logo" alt="DPS logo" />
@@ -107,6 +117,7 @@ function App() {
 					border: '2px solid black',
 					borderRadius: '16px',
 					padding: '1rem',
+					width: '700px',
 				}}
 			>
 				<div
@@ -223,7 +234,6 @@ function App() {
 					style={{
 						border: '2px solid black',
 						borderRadius: '16px',
-						overflow: 'hidden',
 					}}
 				>
 					<table
@@ -235,7 +245,10 @@ function App() {
 						<thead>
 							<tr
 								style={{
-									borderBottom: '2px solid black',
+									borderBottom:
+										filteredUsers.length > 0
+											? '2px solid black'
+											: 'none',
 								}}
 							>
 								<th
@@ -318,7 +331,7 @@ function App() {
 					</table>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
