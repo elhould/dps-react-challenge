@@ -2,15 +2,19 @@
 	font-family: 'Comic Sans MS', sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
 	background-color: #2c2c2c;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	--border-color: black;
+	--highlight-color: #646cff;
+	--background-color: #ffffff;
+	--text-color: #000000;
+	--placeholder-light: rgba(0, 0, 0, 0.6);
+	--placeholder-dark: rgba(255, 255, 255, 0.6);
 }
 
 a {
@@ -100,6 +104,18 @@ textarea:focus {
 	border: 1px solid #646cff;
 }
 
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+	color: var(--placeholder-light);
+	opacity: 1;
+}
+
+input[type="checkbox"]:checked {
+	background-color: #646cff;
+	border-color: #646cff;
+}
+
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;
@@ -110,5 +126,32 @@ textarea:focus {
 	}
 	button {
 		background-color: #f9f9f9;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #2c2c2c;
+		--text-color: #ffffff;
+		--border-color: white;
+		--highlight-color: #492771;
+	}
+	div,
+	input,
+	select,
+	table,
+	th,
+	td,
+	label {
+		border-color: white !important;
+	}
+	input::placeholder,
+	textarea::placeholder,
+	select::placeholder {
+		color: var(--placeholder-dark);
+	}
+	input[type="checkbox"]:checked {
+		background-color: #492771;
+		border-color: #492771;
 	}
 }

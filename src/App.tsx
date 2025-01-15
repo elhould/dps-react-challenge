@@ -98,237 +98,276 @@ function App() {
 	return (
 		<div
 			style={{
-				position: 'fixed',
-				top: '5%',
-				left: '50%',
-				transform: 'translateX(-50%)',
-				gap: '1rem',
-				width: '90%',
-				maxWidth: '800px',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'flex-start',
+				paddingTop: '5%',
+				minHeight: '100vh',
 			}}
 		>
-			<div>
-				<a href="https://www.digitalproductschool.io/" target="_blank">
-					<img src={dpsLogo} className="logo" alt="DPS logo" />
-				</a>
-			</div>
 			<div
 				style={{
-					border: '2px solid black',
-					borderRadius: '16px',
-					padding: '1rem',
-					width: '700px',
+					width: '90%',
+					maxWidth: '800px',
+					gap: '1rem',
 				}}
 			>
-				<div
-					style={{
-						marginBottom: '1rem',
-						display: 'flex',
-						gap: '1rem',
-					}}
-				>
-					{/* Filter by name */}
-					<div style={{ flex: 1 }}>
-						<div
-							style={{
-								fontSize: '1rem',
-								textAlign: 'left',
-							}}
-						>
-							Name
-						</div>
-
-						{/* Input field to filter users by name */}
-						<input
-							type="text"
-							placeholder="Filter by name..."
-							value={nameFilter}
-							onChange={(e) => setNameFilter(e.target.value)}
-							style={{
-								width: '100%',
-								border: '2px solid black',
-								borderRadius: '16px',
-							}}
-						/>
-					</div>
-
-					{/* Filter by city */}
-					<div style={{ flex: 1 }}>
-						<div
-							style={{
-								fontSize: '1rem',
-								textAlign: 'left',
-							}}
-						>
-							City
-						</div>
-						{/* Dropdown for filtering users by city */}
-						<Select
-							options={cityOptions}
-							placeholder="Select City..."
-							isClearable
-							value={cityOptions.find(
-								(option) => option.value === cityFilter
-							)}
-							onChange={(selectedOption) =>
-								setCityFilter(
-									selectedOption ? selectedOption.value : ''
-								)
-							}
-							styles={{
-								container: (provided) => ({
-									...provided,
-									width: '100%',
-								}),
-								control: (provided) => ({
-									...provided,
-									height: '50px',
-									border: '2px solid black',
-									marginTop: '0.5rem',
-									borderRadius: '16px',
-									boxShadow: 'none',
-									'&:hover': {
-										borderColor: 'black',
-									},
-								}),
-							}}
-						/>
-					</div>
-
-					{/* Highlight oldest users per city */}
-					<div
-						style={{
-							flex: 1,
-							display: 'flex',
-							alignItems: 'center',
-						}}
-					>
-						<label
-							style={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-								width: '100%',
-								gap: '0.5rem',
-								fontSize: '1rem',
-								textAlign: 'left',
-								marginTop: '1rem',
-							}}
-						>
-							Highlight oldest per city
-							<input
-								style={{
-									width: '50%',
-									transform: 'scale(1.5)',
-								}}
-								type="checkbox"
-								checked={highlightOldestUserPerCity}
-								onChange={(e) =>
-									setHighlightOldestPerCity(e.target.checked)
-								}
-							/>
-						</label>
-					</div>
+				<div>
+					<a href="https://www.digitalproductschool.io/" target="_blank">
+						<img src={dpsLogo} className="logo" alt="DPS logo" />
+					</a>
 				</div>
 				<div
 					style={{
 						border: '2px solid black',
 						borderRadius: '16px',
+						padding: '1rem',
+						width: '700px',
 					}}
 				>
-					<table
+					<div
 						style={{
-							width: '100%',
-							borderCollapse: 'collapse',
+							marginBottom: '1rem',
+							display: 'flex',
+							gap: '1rem',
 						}}
 					>
-						<thead>
-							<tr
+						{/* Filter by name */}
+						<div style={{ flex: 1 }}>
+							<div
 								style={{
-									borderBottom:
-										filteredUsers.length > 0
-											? '2px solid black'
-											: 'none',
+									fontSize: '1rem',
+									textAlign: 'left',
 								}}
 							>
-								<th
-									style={{
-										fontWeight: 'normal',
-										padding: '10px',
+							Name
+							</div>
+
+							{/* Input field to filter users by name */}
+							<input
+								type="text"
+								placeholder="Filter by name..."
+								value={nameFilter}
+								onChange={(e) => setNameFilter(e.target.value)}
+								style={{
+									width: '100%',
+									border: '2px solid var(--border-color)',
+									borderRadius: '16px',
+									backgroundColor: 'var(--background-color)',
+									color: 'var(--text-color)',
+									boxShadow: 'none',
+									outline: 'none',
+									transition: 'box-shadow 0.25s ease',
+								}}
+								onFocus={(e) => (e.target.style.boxShadow = `0 0 0 4px var(--highlight-color)`)}
+								onBlur={(e) => (e.target.style.boxShadow = 'none')}
+							/>
+
+						</div>
+
+						{/* Filter by city */}
+						<div style={{ flex: 1 }}>
+							<div
+								style={{
+									fontSize: '1rem',
+									textAlign: 'left',
+								}}
+							>
+							City
+							</div>
+							{/* Dropdown for filtering users by city */}
+							<Select
+								options={cityOptions}
+								placeholder="Select City..."
+								isClearable
+								value={cityOptions.find((option) => option.value === cityFilter)}
+								onChange={(selectedOption) =>
+									setCityFilter(selectedOption ? selectedOption.value : '')
+								}
+								styles={{
+									container: (provided) => ({
+										...provided,
+										width: '100%',
+									}),
+									control: (provided, state) => ({
+										...provided,
+										height: '50px',
+										border: `2px solid var(--border-color)`,
+										backgroundColor: 'var(--background-color)',
+										borderRadius: '16px',
+										marginTop: '0.5rem',
+										boxShadow: state.isFocused ? '0 0 0 4px var(--highlight-color)' : 'none',
+										'&:hover': {
+											borderColor: 'black',
+										},
+									}),
+									placeholder: (provided) => ({
+										...provided,
 										textAlign: 'left',
+										color: window.matchMedia('(prefers-color-scheme: dark)').matches
+											? 'var(--placeholder-dark)'
+											: 'var(--placeholder-light)',
+									}),
+									singleValue: (provided) => ({
+										...provided,
+										textAlign: 'left',
+										color: 'var(--text-color)',
+									}),
+									menu: (provided) => ({
+										...provided,
+										backgroundColor: 'var(--background-color)',
+										color: 'var(--text-color)',
+									}),
+									option: (provided, state) => ({
+										...provided,
+										backgroundColor: state.isFocused
+											? 'var(--highlight-color)'
+											: 'var(--background-color)',
+										color: 'var(--text-color)',
+										'&:active': {
+											backgroundColor: 'var(--highlight-color)',
+											color: 'var(--background-color)',
+										},
+									}),
+								}}
+							/>
+
+						</div>
+
+						{/* Highlight oldest users per city */}
+						<div
+							style={{
+								flex: 1,
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
+							<label
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+									width: '100%',
+									gap: '0.5rem',
+									fontSize: '1rem',
+									textAlign: 'left',
+									marginTop: '1rem',
+								}}
+							>
+							Highlight oldest per city
+								<input
+									style={{
+										width: '50%',
+										transform: 'scale(1.5)',
+									}}
+									type="checkbox"
+									checked={highlightOldestUserPerCity}
+									onChange={(e) =>
+										setHighlightOldestPerCity(e.target.checked)
+									}
+								/>
+							</label>
+						</div>
+					</div>
+					<div
+						style={{
+							border: '2px solid black',
+							borderRadius: '16px',
+							overflow: 'hidden',
+						}}
+					>
+						<table
+							style={{
+								width: '100%',
+								borderCollapse: 'collapse',
+							}}
+						>
+							<thead>
+								<tr
+									style={{
+										borderBottom:
+											filteredUsers.length > 0
+												? `2px solid var(--border-color)`
+												: 'none',
 									}}
 								>
+									<th
+										style={{
+											fontWeight: 'normal',
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
 									Name
-								</th>
-								<th
-									style={{
-										fontWeight: 'normal',
-										padding: '10px',
-										textAlign: 'left',
-									}}
-								>
+									</th>
+									<th
+										style={{
+											fontWeight: 'normal',
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
 									City
-								</th>
-								<th
-									style={{
-										fontWeight: 'normal',
-										padding: '10px',
-										textAlign: 'left',
-									}}
-								>
+									</th>
+									<th
+										style={{
+											fontWeight: 'normal',
+											padding: '10px',
+											textAlign: 'left',
+										}}
+									>
 									Birthday
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{filteredUsers.map((user) => {
-								const isOldest =
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{filteredUsers.map((user) => {
+									const isOldest =
 									highlightOldestUserPerCity &&
 									oldestUsersPerCity[user.address.city]?.some(
 										(u) => u.id === user.id
 									);
 
-								return (
-									<tr
-										key={user.id}
-										style={{
-											backgroundColor: isOldest
-												? '#add8e6'
-												: 'transparent',
-											borderRadius: '5px',
-										}}
-									>
-										<td
+									return (
+										<tr
+											key={user.id}
 											style={{
-												padding: '10px',
-												textAlign: 'left',
+												backgroundColor: isOldest ? 'var(--highlight-color)' : 'transparent',
+												borderRadius: '5px',
 											}}
 										>
-											{user.firstName +
+											<td
+												style={{
+													padding: '10px',
+													textAlign: 'left',
+												}}
+											>
+												{user.firstName +
 												' ' +
 												user.lastName}
-										</td>
-										<td
-											style={{
-												padding: '10px',
-												textAlign: 'left',
-											}}
-										>
-											{user.address.city}
-										</td>
-										<td
-											style={{
-												padding: '10px',
-												textAlign: 'left',
-											}}
-										>
-											{formatDate(user.birthDate)}
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
+											</td>
+											<td
+												style={{
+													padding: '10px',
+													textAlign: 'left',
+												}}
+											>
+												{user.address.city}
+											</td>
+											<td
+												style={{
+													padding: '10px',
+													textAlign: 'left',
+												}}
+											>
+												{formatDate(user.birthDate)}
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
