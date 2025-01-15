@@ -10,7 +10,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	--border-color: black;
-	--highlight-color: #646cff;
+	--highlight-color: #3bbfed;
 	--background-color: #ffffff;
 	--text-color: #000000;
 	--placeholder-light: rgba(0, 0, 0, 0.6);
@@ -111,11 +111,6 @@ select::placeholder {
 	opacity: 1;
 }
 
-input[type="checkbox"]:checked {
-	background-color: #646cff;
-	border-color: #646cff;
-}
-
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;
@@ -149,9 +144,5 @@ input[type="checkbox"]:checked {
 	textarea::placeholder,
 	select::placeholder {
 		color: var(--placeholder-dark);
-	}
-	input[type="checkbox"]:checked {
-		background-color: #492771;
-		border-color: #492771;
 	}
 }
