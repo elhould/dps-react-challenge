@@ -113,7 +113,10 @@ function App() {
 				}}
 			>
 				<div>
-					<a href="https://www.digitalproductschool.io/" target="_blank">
+					<a
+						href="https://www.digitalproductschool.io/"
+						target="_blank"
+					>
 						<img src={dpsLogo} className="logo" alt="DPS logo" />
 					</a>
 				</div>
@@ -140,7 +143,7 @@ function App() {
 									textAlign: 'left',
 								}}
 							>
-							Name
+								Name
 							</div>
 
 							{/* Input field to filter users by name */}
@@ -154,15 +157,17 @@ function App() {
 									border: '2px solid var(--border-color)',
 									borderRadius: '16px',
 									backgroundColor: 'var(--background-color)',
-									color: 'var(--text-color)',
 									boxShadow: 'none',
 									outline: 'none',
 									transition: 'box-shadow 0.25s ease',
 								}}
-								onFocus={(e) => (e.target.style.boxShadow = `0 0 0 4px var(--highlight-color)`)}
-								onBlur={(e) => (e.target.style.boxShadow = 'none')}
+								onFocus={(e) =>
+									(e.target.style.boxShadow = `0 0 0 4px var(--highlight-color)`)
+								}
+								onBlur={(e) =>
+									(e.target.style.boxShadow = 'none')
+								}
 							/>
-
 						</div>
 
 						{/* Filter by city */}
@@ -173,16 +178,22 @@ function App() {
 									textAlign: 'left',
 								}}
 							>
-							City
+								City
 							</div>
 							{/* Dropdown for filtering users by city */}
 							<Select
 								options={cityOptions}
 								placeholder="Select City..."
 								isClearable
-								value={cityOptions.find((option) => option.value === cityFilter)}
+								value={cityOptions.find(
+									(option) => option.value === cityFilter
+								)}
 								onChange={(selectedOption) =>
-									setCityFilter(selectedOption ? selectedOption.value : '')
+									setCityFilter(
+										selectedOption
+											? selectedOption.value
+											: ''
+									)
 								}
 								styles={{
 									container: (provided) => ({
@@ -193,10 +204,13 @@ function App() {
 										...provided,
 										height: '50px',
 										border: `2px solid var(--border-color)`,
-										backgroundColor: 'var(--background-color)',
+										backgroundColor:
+											'var(--background-color)',
 										borderRadius: '16px',
 										marginTop: '0.5rem',
-										boxShadow: state.isFocused ? '0 0 0 4px var(--highlight-color)' : 'none',
+										boxShadow: state.isFocused
+											? '0 0 0 4px var(--highlight-color)'
+											: 'none',
 										'&:hover': {
 											borderColor: 'black',
 										},
@@ -204,7 +218,9 @@ function App() {
 									placeholder: (provided) => ({
 										...provided,
 										textAlign: 'left',
-										color: window.matchMedia('(prefers-color-scheme: dark)').matches
+										color: window.matchMedia(
+											'(prefers-color-scheme: dark)'
+										).matches
 											? 'var(--placeholder-dark)'
 											: 'var(--placeholder-light)',
 									}),
@@ -215,7 +231,8 @@ function App() {
 									}),
 									menu: (provided) => ({
 										...provided,
-										backgroundColor: 'var(--background-color)',
+										backgroundColor:
+											'var(--background-color)',
 										color: 'var(--text-color)',
 									}),
 									option: (provided, state) => ({
@@ -225,13 +242,13 @@ function App() {
 											: 'var(--background-color)',
 										color: 'var(--text-color)',
 										'&:active': {
-											backgroundColor: 'var(--highlight-color)',
+											backgroundColor:
+												'var(--highlight-color)',
 											color: 'var(--background-color)',
 										},
 									}),
 								}}
 							/>
-
 						</div>
 
 						{/* Highlight oldest users per city */}
@@ -254,7 +271,7 @@ function App() {
 									marginTop: '1rem',
 								}}
 							>
-							Highlight oldest per city
+								Highlight oldest per city
 								<input
 									style={{
 										width: '50%',
@@ -263,7 +280,9 @@ function App() {
 									type="checkbox"
 									checked={highlightOldestUserPerCity}
 									onChange={(e) =>
-										setHighlightOldestPerCity(e.target.checked)
+										setHighlightOldestPerCity(
+											e.target.checked
+										)
 									}
 								/>
 							</label>
@@ -298,7 +317,7 @@ function App() {
 											textAlign: 'left',
 										}}
 									>
-									Name
+										Name
 									</th>
 									<th
 										style={{
@@ -307,7 +326,7 @@ function App() {
 											textAlign: 'left',
 										}}
 									>
-									City
+										City
 									</th>
 									<th
 										style={{
@@ -316,23 +335,25 @@ function App() {
 											textAlign: 'left',
 										}}
 									>
-									Birthday
+										Birthday
 									</th>
 								</tr>
 							</thead>
 							<tbody>
 								{filteredUsers.map((user) => {
 									const isOldest =
-									highlightOldestUserPerCity &&
-									oldestUsersPerCity[user.address.city]?.some(
-										(u) => u.id === user.id
-									);
+										highlightOldestUserPerCity &&
+										oldestUsersPerCity[
+											user.address.city
+										]?.some((u) => u.id === user.id);
 
 									return (
 										<tr
 											key={user.id}
 											style={{
-												backgroundColor: isOldest ? 'var(--highlight-color)' : 'transparent',
+												backgroundColor: isOldest
+													? 'var(--highlight-color)'
+													: 'transparent',
 												borderRadius: '5px',
 											}}
 										>
@@ -343,8 +364,8 @@ function App() {
 												}}
 											>
 												{user.firstName +
-												' ' +
-												user.lastName}
+													' ' +
+													user.lastName}
 											</td>
 											<td
 												style={{
