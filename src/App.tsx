@@ -23,6 +23,24 @@ function App() {
 
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout>>();
 
+	const [theme, setTheme] = useState(
+		window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'light'
+	);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		const handleThemeChange = () => {
+			setTheme(mediaQuery.matches ? 'dark' : 'light');
+		};
+		mediaQuery.addEventListener('change', handleThemeChange);
+
+		return () => {
+			mediaQuery.removeEventListener('change', handleThemeChange);
+		};
+	}, []);
+
 	useEffect(() => {
 		fetch('https://dummyjson.com/users')
 			.then((response) => response.json())
@@ -182,6 +200,7 @@ function App() {
 							</div>
 							{/* Dropdown for filtering users by city */}
 							<Select
+								key={theme}
 								options={cityOptions}
 								placeholder="Select City..."
 								isClearable
