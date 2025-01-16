@@ -159,7 +159,6 @@ function App() {
 											: ''
 									)
 								}
-								// You can keep React-Select inline styles or create a separate .css override
 								styles={{
 									container: (provided) => ({
 										...provided,

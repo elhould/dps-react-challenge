@@ -45,14 +45,11 @@ a:hover {
 	min-height: 100vh;
 }
 
-/* Content container inside .app-container */
 .content-container {
-	width: 90%;
-	max-width: 800px;
-	gap: 1rem; /* Only effective if display: flex or grid */
+	width: 100%;
+	gap: 1rem;
 }
 
-/* A card-like container for your filter section and table */
 .card {
 	border: 2px solid black;
 	border-radius: 16px;
