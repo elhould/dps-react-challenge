@@ -126,7 +126,6 @@ function App() {
 					</a>
 				</div>
 
-				{/* Card-like container */}
 				<div className="card">
 					<div className="filters-row">
 						{/* Filter by name */}
@@ -162,7 +161,6 @@ function App() {
 								styles={{
 									container: (provided) => ({
 										...provided,
-										width: '100%',
 									}),
 									control: (provided, state) => ({
 										...provided,
@@ -175,6 +173,7 @@ function App() {
 										boxShadow: state.isFocused
 											? '0 0 0 4px var(--highlight-color)'
 											: 'none',
+										transition: 'box-shadow 0.25s ease',
 										'&:hover': {
 											borderColor: 'black',
 										},

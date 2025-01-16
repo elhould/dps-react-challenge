@@ -14,8 +14,8 @@
 	--highlight-color: #3bbfed;
 	--background-color: #ffffff;
 	--text-color: #000000;
-	--placeholder-light: rgba(0, 0, 0, 0.6);
-	--placeholder-dark: rgba(255, 255, 255, 0.6);
+	--placeholder-light: rgba(0, 0, 0, 0.5);
+	--placeholder-dark: rgba(255, 255, 255, 0.5);
 }
 
 body {
@@ -109,7 +109,7 @@ a:hover {
 	gap: 0.5rem;
 	font-size: 1rem;
 	text-align: left;
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 
 .checkbox-scale {
@@ -188,5 +188,34 @@ a:hover {
 	textarea::placeholder,
 	select::placeholder {
 		color: var(--placeholder-dark);
+	}
+}
+
+@media (max-width: 600px) {
+	.card {
+		width: 95%;
+		padding: 0.5rem;
+	}
+
+	.filters-row {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.filter-group {
+		text-align: left;
+	}
+
+	.filter-input {
+		width: 95%;
+	}
+
+	.checkbox-container {
+		width: 100%;
+		justify-content: flex-start;
+	}
+
+	.table-container {
+		overflow-x: auto;
 	}
 }
