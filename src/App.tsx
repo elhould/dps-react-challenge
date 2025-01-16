@@ -114,91 +114,36 @@ function App() {
 	}, [users]);
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'flex-start',
-				paddingTop: '5%',
-				minHeight: '100vh',
-			}}
-		>
-			<div
-				style={{
-					width: '90%',
-					maxWidth: '800px',
-					gap: '1rem',
-				}}
-			>
+		<div className="app-container">
+			<div className="content-container">
 				<div>
 					<a
 						href="https://www.digitalproductschool.io/"
 						target="_blank"
+						rel="noreferrer"
 					>
 						<img src={dpsLogo} className="logo" alt="DPS logo" />
 					</a>
 				</div>
-				<div
-					style={{
-						border: '2px solid black',
-						borderRadius: '16px',
-						padding: '1rem',
-						width: '700px',
-					}}
-				>
-					<div
-						style={{
-							marginBottom: '1rem',
-							display: 'flex',
-							gap: '1rem',
-						}}
-					>
-						{/* Filter by name */}
-						<div style={{ flex: 1 }}>
-							<div
-								style={{
-									fontSize: '1rem',
-									textAlign: 'left',
-								}}
-							>
-								Name
-							</div>
 
-							{/* Input field to filter users by name */}
+				{/* Card-like container */}
+				<div className="card">
+					<div className="filters-row">
+						{/* Filter by name */}
+						<div className="filter-group">
+							<div className="filter-label">Name</div>
 							<input
 								type="text"
+								className="filter-input"
 								placeholder="Filter by name..."
 								value={nameFilter}
 								onChange={(e) => setNameFilter(e.target.value)}
-								style={{
-									width: '100%',
-									border: '2px solid var(--border-color)',
-									borderRadius: '16px',
-									backgroundColor: 'var(--background-color)',
-									boxShadow: 'none',
-									outline: 'none',
-									transition: 'box-shadow 0.25s ease',
-								}}
-								onFocus={(e) =>
-									(e.target.style.boxShadow = `0 0 0 4px var(--highlight-color)`)
-								}
-								onBlur={(e) =>
-									(e.target.style.boxShadow = 'none')
-								}
 							/>
 						</div>
 
 						{/* Filter by city */}
-						<div style={{ flex: 1 }}>
-							<div
-								style={{
-									fontSize: '1rem',
-									textAlign: 'left',
-								}}
-							>
-								City
-							</div>
-							{/* Dropdown for filtering users by city */}
+						<div className="filter-group">
+							<div className="filter-label">City</div>
 							<Select
 								key={theme}
 								options={cityOptions}
@@ -214,6 +159,7 @@ function App() {
 											: ''
 									)
 								}
+								// You can keep React-Select inline styles or create a separate .css override
 								styles={{
 									container: (provided) => ({
 										...provided,
@@ -270,32 +216,12 @@ function App() {
 							/>
 						</div>
 
-						{/* Highlight oldest users per city */}
-						<div
-							style={{
-								flex: 1,
-								display: 'flex',
-								alignItems: 'center',
-							}}
-						>
-							<label
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'space-between',
-									width: '100%',
-									gap: '0.5rem',
-									fontSize: '1rem',
-									textAlign: 'left',
-									marginTop: '1rem',
-								}}
-							>
+						{/* Highlight oldest user per city */}
+						<div className="checkbox-container">
+							<label className="checkbox-label">
 								Highlight oldest per city
 								<input
-									style={{
-										width: '50%',
-										transform: 'scale(1.5)',
-									}}
+									className="checkbox-scale"
 									type="checkbox"
 									checked={highlightOldestUserPerCity}
 									onChange={(e) =>
@@ -307,55 +233,21 @@ function App() {
 							</label>
 						</div>
 					</div>
-					<div
-						style={{
-							border: '2px solid black',
-							borderRadius: '16px',
-							overflow: 'hidden',
-						}}
-					>
-						<table
-							style={{
-								width: '100%',
-								borderCollapse: 'collapse',
-							}}
-						>
+
+					{/* Table container */}
+					<div className="table-container">
+						<table className="user-table">
 							<thead>
 								<tr
-									style={{
-										borderBottom:
-											filteredUsers.length > 0
-												? `2px solid var(--border-color)`
-												: 'none',
-									}}
+									className={
+										filteredUsers.length > 0
+											? 'table-header has-users'
+											: 'table-header no-users'
+									}
 								>
-									<th
-										style={{
-											fontWeight: 'normal',
-											padding: '10px',
-											textAlign: 'left',
-										}}
-									>
-										Name
-									</th>
-									<th
-										style={{
-											fontWeight: 'normal',
-											padding: '10px',
-											textAlign: 'left',
-										}}
-									>
-										City
-									</th>
-									<th
-										style={{
-											fontWeight: 'normal',
-											padding: '10px',
-											textAlign: 'left',
-										}}
-									>
-										Birthday
-									</th>
+									<th>Name</th>
+									<th>City</th>
+									<th>Birthday</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -369,37 +261,17 @@ function App() {
 									return (
 										<tr
 											key={user.id}
-											style={{
-												backgroundColor: isOldest
-													? 'var(--highlight-color)'
-													: 'transparent',
-												borderRadius: '5px',
-											}}
+											className={
+												isOldest ? 'oldest-row' : ''
+											}
 										>
-											<td
-												style={{
-													padding: '10px',
-													textAlign: 'left',
-												}}
-											>
+											<td>
 												{user.firstName +
 													' ' +
 													user.lastName}
 											</td>
-											<td
-												style={{
-													padding: '10px',
-													textAlign: 'left',
-												}}
-											>
-												{user.address.city}
-											</td>
-											<td
-												style={{
-													padding: '10px',
-													textAlign: 'left',
-												}}
-											>
+											<td>{user.address.city}</td>
+											<td>
 												{formatDate(user.birthDate)}
 											</td>
 										</tr>
