@@ -142,7 +142,7 @@ function App() {
 
 						{/* Filter by city */}
 						<div className="filter-group">
-							<div className="filter-label">City</div>
+							<div className="filter-label">Cities</div>
 							<Select
 								key={theme}
 								options={cityOptions}

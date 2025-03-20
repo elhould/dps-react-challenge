@@ -71,6 +71,7 @@ a:hover {
 
 /* Label for the filter fields (Name, City, etc.) */
 .filter-label {
+	padding-left: 6px;
 	font-size: 1rem;
 	text-align: left;
 }
